@@ -21,6 +21,16 @@ func (r *Ring) search(key string) int {
     /////////////////////////
     // YOUR CODE GOES HERE //
     /////////////////////////
+    r.Lock()
+    defer r.Unlock()
+
+    hash := hashId(key)
+
+    for i, node := range r.Nodes {
+        if node.HashId > hash {
+            return i
+        }
+    }
 
     return 0
 }
